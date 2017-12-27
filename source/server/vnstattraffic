@@ -1,0 +1,19 @@
+#!/bin/bash
+vnstat --config /opt/trafficstat/vnstat.conf -tr | awk ' 
+	/tx/ {
+		gsub(",", ".",$2);
+		if ($3 == "Mbit/s")
+			tx=1024*$2;
+		else
+			tx=$2;
+	}
+	/rx/ {
+		gsub(",", ".",$2);
+		if ($3 == "Mbit/s")
+			rx=1024*$2;
+		else
+			rx=$2;
+	}
+	END{ printf "{ \"tx\": %.0f, \"rx\": %.0f }", tx, rx }
+'
+
