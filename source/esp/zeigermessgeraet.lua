@@ -1,6 +1,7 @@
 -- PWM einrichten
-pwm.setup(1, 50, 50)
-pwm.start(1)
+-- GPIO2 vom ESP8266 ist D4 in der Nodemcu Firmware
+pwm.setup(4, 50, 50)
+pwm.start(4)
 
 -- Timer-Routine stellt Verbindung zum vnstattraffic Service her
 tmr.alarm(1, 1000, tmr.ALARM_SEMI, function()
@@ -54,5 +55,5 @@ function setvalue(value)
     duty = math.floor(duty)
     
     print(duty)
-    pwm.setduty(1,duty)
+    pwm.setduty(4,duty)
 end
